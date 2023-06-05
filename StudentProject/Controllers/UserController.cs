@@ -16,19 +16,19 @@ namespace StudentProject.Controllers
     {
         private readonly JWTSetting setting;
         private readonly User users;
-     
+
         public UserController(IOptions<JWTSetting> option, User user)
         {
-           users = user;
+            users = user;
             setting = option.Value;
-           
+
         }
 
 
         [HttpPost("SignUp")]
         public async Task<IActionResult> SignUpUser(UserRegister userRegister)
         {
-         
+
             try
             {
                 var _user = await users.AddUser(userRegister);
@@ -39,7 +39,7 @@ namespace StudentProject.Controllers
             }
             catch (Exception ex)
             {
-             
+
                 return BadRequest(ex.Message);
             }
         }
@@ -63,7 +63,7 @@ namespace StudentProject.Controllers
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name,user.EmailAddress),
-                   
+
                 }),
                 Expires = DateTime.Now.AddHours(3),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -76,7 +76,8 @@ namespace StudentProject.Controllers
                 Token = FinalToken,
                 Email = user.EmailAddress,
                 Password = user.Password,
-               
+                UserName=user.UserName, 
+
             });
         }
     }

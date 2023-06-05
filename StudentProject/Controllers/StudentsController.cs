@@ -24,10 +24,10 @@ namespace StudentProject.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
         {
-          if (_context.Students == null)
-          {
-              return NotFound();
-          }
+            if (_context.Students == null)
+            {
+                return NotFound();
+            }
             return await _context.Students.ToListAsync();
         }
 
@@ -35,10 +35,10 @@ namespace StudentProject.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Student>> GetStudent(int id)
         {
-          if (_context.Students == null)
-          {
-              return NotFound();
-          }
+            if (_context.Students == null)
+            {
+                return NotFound();
+            }
             var student = await _context.Students.FindAsync(id);
 
             if (student == null)
@@ -85,10 +85,10 @@ namespace StudentProject.Controllers
         [HttpPost]
         public async Task<ActionResult<Student>> PostStudent(Student student)
         {
-          if (_context.Students == null)
-          {
-              return Problem("Entity set 'angularprojectContext.Students'  is null.");
-          }
+            if (_context.Students == null)
+            {
+                return Problem("Entity set 'angularprojectContext.Students'  is null.");
+            }
             _context.Students.Add(student);
             await _context.SaveChangesAsync();
 

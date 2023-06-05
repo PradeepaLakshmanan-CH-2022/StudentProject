@@ -26,7 +26,7 @@ namespace StudentProject.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=.\\sqlexpress;Database=angularproject;User Id=sa;Password=Pass#1234");
+                optionsBuilder.UseSqlServer("Server=.\\sqlexpress;Database=angularproject;User Id=sa;Password=Pass#1234;");
             }
         }
 
@@ -36,9 +36,7 @@ namespace StudentProject.Models
             {
                 entity.ToTable("Department");
 
-                entity.Property(e => e.DepartmentId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("DepartmentID");
+                entity.Property(e => e.DepartmentId).HasColumnName("DepartmentID");
 
                 entity.Property(e => e.DepartmentName)
                     .HasMaxLength(50)
@@ -73,17 +71,21 @@ namespace StudentProject.Models
                 entity.HasOne(d => d.Department)
                     .WithMany(p => p.Students)
                     .HasForeignKey(d => d.DepartmentId)
-                    .HasConstraintName("FK__Student__Departm__38996AB5");
+                    .HasConstraintName("FK__Student__Departm__71D1E811");
             });
 
             modelBuilder.Entity<UserRegister>(entity =>
             {
                 entity.HasKey(e => e.UserId)
-                    .HasName("PK__UserRegi__1788CC4C97364341");
+                    .HasName("PK__UserRegi__1788CC4C7A442989");
 
                 entity.ToTable("UserRegister");
 
                 entity.Property(e => e.EmailAddress)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.MobileNumber)
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
